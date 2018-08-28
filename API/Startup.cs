@@ -34,6 +34,8 @@ namespace API
             services.AddTransient<IPatrimonioRepository, PatrimonioRepository>();
             services.AddTransient<IUsuarioBusiness, UsuarioBusiness>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+            services.AddTransient<IMarcaBusiness, MarcaBusiness>();
+            services.AddTransient<IMarcaRepository, MarcaRepository>();
 
             services.AddSwaggerGen(options =>
             {

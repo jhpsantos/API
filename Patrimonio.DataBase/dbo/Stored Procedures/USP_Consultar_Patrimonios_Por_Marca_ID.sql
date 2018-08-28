@@ -3,7 +3,7 @@
 -- Create date: 2018-08-28
 -- Description:	Consultar os patrimônios relacionados a Marca por Id;
 -- =============================================
-CREATE PROCEDURE [dbo].[USP_Consultar_Patrimonios_Por_Marca_D]
+CREATE PROCEDURE [dbo].[USP_Consultar_Patrimonios_Por_Marca_ID]
 (
 	@MarcaId INT
 )
@@ -17,7 +17,6 @@ BEGIN
 	,	p.NrTombo
 	,	p.Nome
 	,	p.MarcaId
-	,	m.Nome as 'NomeMarca'
 	,	p.Descricao
 	FROM Patrimonio p (NOLOCK)
 		--DoubleCheck para verificar a existencia da Marca na base;

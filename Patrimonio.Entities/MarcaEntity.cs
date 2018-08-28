@@ -4,7 +4,10 @@ using System.Text;
 
 namespace Patrimonio.Entities
 {
-    class MarcaEntity
+    public class MarcaEntity
     {
+        public int MarcaId { get; set; }
+
+        public string Nome { get; set; }
     }
 }
