@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace Patrimonio.Repository.Interface
+namespace Patrimonio.Business.Interface
 {
-    public interface IPatrimonioRepository 
+    public interface IPatrimonioBusiness
     {
         bool InserirPatrimonio(PatrimonioEntity patrimonio);
 

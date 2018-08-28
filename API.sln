@@ -3,17 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patrimonios.API", "API\Patrimonios.API.csproj", "{547A77FD-1D97-45DF-AEA3-7669254962F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patrimonios.API", "API\Patrimonios.API.csproj", "{547A77FD-1D97-45DF-AEA3-7669254962F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patrimonio.Business", "Patrimonio.Business\Patrimonio.Business.csproj", "{CB7A62FC-ABC4-4BED-9AD6-09FD57D830DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patrimonio.Business", "Patrimonio.Business\Patrimonio.Business.csproj", "{CB7A62FC-ABC4-4BED-9AD6-09FD57D830DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patrimonio.Entities", "Patrimonio.Entities\Patrimonio.Entities.csproj", "{3C319FC7-36A9-4062-A16C-C4070E8D9C0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patrimonio.Entities", "Patrimonio.Entities\Patrimonio.Entities.csproj", "{3C319FC7-36A9-4062-A16C-C4070E8D9C0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patrimonio.Repository", "Patrimonio.Repository\Patrimonio.Repository.csproj", "{95B73B3F-AB8D-44AC-B13F-4AF9A7571A68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patrimonio.Repository", "Patrimonio.Repository\Patrimonio.Repository.csproj", "{95B73B3F-AB8D-44AC-B13F-4AF9A7571A68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patrimonio.Business.Interface", "Patrimonio.Business.Interface\Patrimonio.Business.Interface.csproj", "{CBA27470-7F18-40C8-9825-C1EE42759167}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patrimonio.Business.Interface", "Patrimonio.Business.Interface\Patrimonio.Business.Interface.csproj", "{CBA27470-7F18-40C8-9825-C1EE42759167}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patrimonio.Repository.Interface", "Patrimonio.Repository.Interface\Patrimonio.Repository.Interface.csproj", "{EA6DA247-0020-48AC-8935-4D32FDF3D07D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patrimonio.Repository.Interface", "Patrimonio.Repository.Interface\Patrimonio.Repository.Interface.csproj", "{EA6DA247-0020-48AC-8935-4D32FDF3D07D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patrimonio.Test", "Patrimonio.Test\Patrimonio.Test.csproj", "{4B76D0DD-D998-4B6F-9349-3AB7CB556E2D}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Patrimonio.DataBase", "Patrimonio.DataBase\Patrimonio.DataBase.sqlproj", "{59A7B744-F9BD-458C-B04E-9E231C42287C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,16 @@ Global
 		{EA6DA247-0020-48AC-8935-4D32FDF3D07D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA6DA247-0020-48AC-8935-4D32FDF3D07D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA6DA247-0020-48AC-8935-4D32FDF3D07D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B76D0DD-D998-4B6F-9349-3AB7CB556E2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B76D0DD-D998-4B6F-9349-3AB7CB556E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B76D0DD-D998-4B6F-9349-3AB7CB556E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B76D0DD-D998-4B6F-9349-3AB7CB556E2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59A7B744-F9BD-458C-B04E-9E231C42287C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59A7B744-F9BD-458C-B04E-9E231C42287C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59A7B744-F9BD-458C-B04E-9E231C42287C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{59A7B744-F9BD-458C-B04E-9E231C42287C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59A7B744-F9BD-458C-B04E-9E231C42287C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59A7B744-F9BD-458C-B04E-9E231C42287C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
