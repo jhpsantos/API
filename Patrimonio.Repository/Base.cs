@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Runtime;
+using System.Runtime.InteropServices;
 
 namespace Patrimonio.Repository
 {
     public class Base : IDisposable
     {
+        bool disposed = false;
+
         protected IDbConnection connection;
         public Base()
         {
@@ -16,7 +20,21 @@ namespace Patrimonio.Repository
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            disposed = true;
+        }
+
+        ~Base()
+        {
+            Dispose(false);
         }
     }
 }
