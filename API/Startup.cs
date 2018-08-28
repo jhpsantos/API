@@ -31,6 +31,8 @@ namespace API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IPatrimonioBusiness, PatrimonioBusiness>();
             services.AddTransient<IPatrimonioRepository, PatrimonioRepository>();
+            services.AddTransient<IUsuarioBusiness, UsuarioBusiness>();
+            services.AddTransient<IUsuarioRepository, UsuarioRepository>();
         }
 
 

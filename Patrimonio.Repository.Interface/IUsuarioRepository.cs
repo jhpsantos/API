@@ -1,10 +1,19 @@
-﻿using System;
+﻿using Patrimonio.Entities;
+using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Patrimonio.Repository.Interface
 {
-    class IUsuarioRepository
+    public interface IUsuarioRepository
     {
+        bool InserirUsuario(UsuarioEntity usuario);
+
+        bool AtualizarUsuario(UsuarioEntity usuario);
+
+        bool ExcluirUsuarioPorId(int usuarioID);
+
+        IList<UsuarioEntity> ListarTodosUsuarios();
+
+        UsuarioEntity ConsultarPorId(int usuarioId);
     }
 }

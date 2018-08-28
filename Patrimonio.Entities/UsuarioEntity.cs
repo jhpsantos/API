@@ -4,7 +4,16 @@ using System.Text;
 
 namespace Patrimonio.Entities
 {
-    class UsuarioEntity
+    public class UsuarioEntity
     {
+
+        public int UsuarioId { get; set; }
+
+        public string Nome { get; set; }
+
+        public string Email { get; set; }
+
+        public string Senha { get; set; }
+
     }
 }
