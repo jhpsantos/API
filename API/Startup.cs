@@ -9,6 +9,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Patrimonio.Business;
+using Patrimonio.Business.Interface;
+using Patrimonio.Repository.Interface;
+using Patrimonio.Repository.RepositoriosEntidades;
 
 namespace API
 {
@@ -25,7 +29,10 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddTransient<IPatrimonioBusiness, PatrimonioBusiness>();
+            services.AddTransient<IPatrimonioRepository, PatrimonioRepository>();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Patrimonio.Business.Interface\Patrimonio.Business.Interface.csproj" />
+    <ProjectReference Include="..\Patrimonio.Repository.Interface\Patrimonio.Repository.Interface.csproj" />
+  </ItemGroup>
+
 </Project>

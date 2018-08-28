@@ -12,4 +12,12 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Patrimonio.Business.Interface\Patrimonio.Business.Interface.csproj" />
+    <ProjectReference Include="..\Patrimonio.Business\Patrimonio.Business.csproj" />
+    <ProjectReference Include="..\Patrimonio.Entities\Patrimonio.Entities.csproj" />
+    <ProjectReference Include="..\Patrimonio.Repository.Interface\Patrimonio.Repository.Interface.csproj" />
+    <ProjectReference Include="..\Patrimonio.Repository\Patrimonio.Repository.csproj" />
+  </ItemGroup>
+
 </Project>
