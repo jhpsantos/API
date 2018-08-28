@@ -8,7 +8,7 @@ using Patrimonio.Entities;
 
 namespace API.Controllers
 {
-    [Route("api/Patrimonio")]
+    [Route("api/patrimonios")]
     [ApiController]
     public class PatrimonioController : ControllerBase
     {
@@ -22,56 +22,91 @@ namespace API.Controllers
         // GET api/patrimonio
         //Listar todos os patrimonios;
         [HttpGet]
-        public IList<PatrimonioEntity> Get()
+        public ActionResult Get()
         {
-            return patrimonioBusiness.ListarTodosPatrimonios();
+            IList<PatrimonioEntity> patrimonios = patrimonioBusiness.ListarTodosPatrimonios();
+            return Ok(patrimonios);
         }
 
         // GET api/patrimonio/{id}
         [HttpGet("{id}")]
-        public PatrimonioEntity Get(int id)
+        public ActionResult<PatrimonioEntity> Get(int id)
         {
-            return patrimonioBusiness.ConsultarPorId(id);
+            PatrimonioEntity patrimonio = patrimonioBusiness.ConsultarPorId(id);
+
+            if (null == patrimonio
+                || patrimonio.PatrimonioId.Equals(0))
+                return NotFound(
+                    string.Format("Nenhum registro encontrado: {0}!"
+                        , id));
+            else
+                return Ok(patrimonio);
         }
 
-        // GET api/patrimonio/GetNrTombo/{nrTombo}
-        [HttpGet("{nrTombo}")]
-        [Route("GetNrTombo/{nrTombo}")]
-        public PatrimonioEntity GetNrTombo(string nrTombo)
+        // GET api/patrimonio/tombo/{nrTombo}
+        [HttpGet("tombo/{nrTombo}")]
+        public ActionResult<PatrimonioEntity> GetNrTombo(string nrTombo)
         {
-            return patrimonioBusiness.ConsultarPorNumeroTombo(nrTombo);
+            PatrimonioEntity patrimonio = patrimonioBusiness.ConsultarPorNumeroTombo(nrTombo);
+            if (null == patrimonio
+               || patrimonio.PatrimonioId.Equals(0))
+                return NotFound(
+                    string.Format("Nenhum registro encontrado: {0}!"
+                        , nrTombo));
+            else
+                return Ok(patrimonio);
         }
 
         // POST api/patrimonio
         // Incluir um patrimonio
         [HttpPost]
-        public void Post([FromBody] PatrimonioEntity entity)
+        public ActionResult Post([FromBody] PatrimonioEntity entity)
         {
-            patrimonioBusiness.InserirPatrimonio(entity);
+            if (patrimonioBusiness.InserirPatrimonio(entity))
+                return Ok();
+            else
+                ///Não foi possível resolver a requisição. E o registro não foi gerado;
+                return BadRequest();
         }
 
         // PUT api/patrimonio/{id}
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] PatrimonioEntity entity)
+        public ActionResult Put(int id, [FromBody] PatrimonioEntity entity)
         {
             entity.PatrimonioId = id;
-            patrimonioBusiness.AtualizarPatrimonio(entity);
+            if (patrimonioBusiness.AtualizarPatrimonio(entity))
+                return Ok();
+            else
+                ///Não foi possível resolver a requisição. E o registro não foi atualizado;
+                return BadRequest(
+                 string.Format(@"Nenhum registro foi atualizado: {0} !"
+                         , id));
         }
 
         // DELETE api/patrimonio/{id}
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
-            patrimonioBusiness.ExcluirPatrimonioPorId(id);
+            if (patrimonioBusiness.ExcluirPatrimonioPorId(id))
+                return NoContent();
+            else
+                ///Não foi possível resolver a requisição. E o registro não foi excluido;
+                return BadRequest(
+                    string.Format(@"Nenhum registro foi encontrado: {0} !"
+                            , id));
         }
 
-        // DELETE api/patrimonio/GetNrTombo/{nrTombo}
-        [HttpDelete("{nrTombo}")]
-        [Route("DeleteNrTombo/{nrTombo}")]
-        public void DeleteNrTombo(string nrTombo)
+        // DELETE api/patrimonio/tombo/{nrTombo}
+        [HttpDelete("tombo/{nrTombo}")]
+        public ActionResult DeleteNrTombo(string nrTombo)
         {
-            patrimonioBusiness.ExcluirPatrimonioPorNrTombo(nrTombo);
+            if (patrimonioBusiness.ExcluirPatrimonioPorNrTombo(nrTombo))
+                return NoContent();
+            else
+                ///Não foi possível resolver a requisição. E o registro não foi excluido;
+                return BadRequest(
+                    string.Format(@"Nenhum registro foi encontrado: {0} !"
+                            , nrTombo));
         }
-
     }
 }

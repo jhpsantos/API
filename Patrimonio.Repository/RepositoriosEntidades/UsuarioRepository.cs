@@ -64,12 +64,6 @@ namespace Patrimonio.Repository.RepositoriosEntidades
                     , null
                     , null
                     , CommandType.StoredProcedure);
-
-                if (null == retorno
-                    || retorno.UsuarioId.Equals(0))
-                    throw new Exception(
-                        string.Format(@"Ocorreu um erro ao consultar por ID '{0}'. Registro não encontrado!"
-                        , usuarioId));
             }
             catch (SqlException sqlEx)
             {
