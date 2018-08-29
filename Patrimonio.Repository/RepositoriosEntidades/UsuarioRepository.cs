@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using Patrimonio.Entities;
 using Patrimonio.Repository.Interface;
 using System;
@@ -12,6 +13,13 @@ namespace Patrimonio.Repository.RepositoriosEntidades
     public class UsuarioRepository: Base, IUsuarioRepository
     {
         bool disposed = false;
+
+
+        public UsuarioRepository(IConfiguration settings)
+        {
+            connection =
+                 new SqlConnection(settings.GetSection("ApplicationSettings").GetSection("ConnectionString").Value);
+        }
 
         public bool AtualizarUsuario(UsuarioEntity usuario)
         {

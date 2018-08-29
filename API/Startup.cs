@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Patrimonio.Business;
 using Patrimonio.Business.Interface;
+using Patrimonio.Entities;
 using Patrimonio.Repository.Interface;
 using Patrimonio.Repository.RepositoriosEntidades;
 using Patrimonios.API;
@@ -94,7 +95,8 @@ namespace API
                  .AllowCredentials());
             });
 
-           
+            services.Configure<AppSettings>(Configuration.GetSection("ApplicationSettings"));
+            services.AddOptions();
         }
 
 
@@ -119,6 +121,10 @@ namespace API
                     c.OAuthAppName("Swagger UI");
                 }
             );
+
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
         }
     }
 }

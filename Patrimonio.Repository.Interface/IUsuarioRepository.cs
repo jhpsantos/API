@@ -1,4 +1,5 @@
-﻿using Patrimonio.Entities;
+﻿using Microsoft.Extensions.Options;
+using Patrimonio.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -15,5 +16,7 @@ namespace Patrimonio.Repository.Interface
         IList<UsuarioEntity> ListarTodosUsuarios();
 
         UsuarioEntity ConsultarPorId(int usuarioId);
+
+        void SetConfiguration(IOptions<AppSettings> config);
     }
 }

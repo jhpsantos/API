@@ -1,10 +1,11 @@
-﻿using Patrimonio.Entities;
+﻿using Microsoft.Extensions.Options;
+using Patrimonio.Entities;
 using System;
 using System.Collections.Generic;
 
 namespace Patrimonio.Repository.Interface
 {
-    public interface IPatrimonioRepository 
+    public interface IPatrimonioRepository
     {
         bool InserirPatrimonio(PatrimonioEntity patrimonio);
 
@@ -19,5 +20,6 @@ namespace Patrimonio.Repository.Interface
         PatrimonioEntity ConsultarPorId(int patrimonioId);
 
         PatrimonioEntity ConsultarPorNumeroTombo(string nrTombo);
+
     }
 }

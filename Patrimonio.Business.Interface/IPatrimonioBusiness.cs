@@ -1,4 +1,5 @@
-﻿using Patrimonio.Entities;
+﻿using Microsoft.Extensions.Options;
+using Patrimonio.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -6,9 +7,17 @@ namespace Patrimonio.Business.Interface
 {
     public interface IPatrimonioBusiness
     {
-        bool InserirPatrimonio(PatrimonioEntity patrimonio);
 
-        bool AtualizarPatrimonio(PatrimonioEntity patrimonio);
+        bool InserirPatrimonio(
+            string nome
+          , int marcaId
+          , string descricao);
+
+        bool AtualizarPatrimonio(
+                int patrimonioId
+               , string nome
+               , int marcaId
+               , string descricao);
 
         bool ExcluirPatrimonioPorId(int patrimonioId);
 

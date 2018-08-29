@@ -1,4 +1,7 @@
-﻿using Microsoft.Win32.SafeHandles;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.Win32.SafeHandles;
+using Patrimonio.Entities;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -14,7 +17,17 @@ namespace Patrimonio.Repository
         protected IDbConnection connection;
         public Base()
         {
-            string connectionString = @"Data Source=.\;Initial Catalog=ESXDESAFIO;Integrated Security=True";
+        }
+
+        public Base(IConfiguration settings)
+        {
+            connection =
+               new SqlConnection(settings.GetSection("ApplicationSettings").GetSection("ConnectionString").Value);
+        }
+
+        public void SetConfiguration(IOptions<AppSettings> config)
+        {
+            string connectionString = config.Value.ConnectionString;
             connection = new SqlConnection(connectionString);
         }
 

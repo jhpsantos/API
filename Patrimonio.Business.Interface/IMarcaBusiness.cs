@@ -1,4 +1,5 @@
-﻿using Patrimonio.Entities;
+﻿using Microsoft.Extensions.Options;
+using Patrimonio.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +8,7 @@ namespace Patrimonio.Business.Interface
 {
     public interface IMarcaBusiness
     {
+
         bool AtualizarMarca(
                 int marcaId
             , string nome);
