@@ -108,6 +108,8 @@
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Security\" />
+    <Folder Include="Schemma" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Patrimonio.sql">
@@ -194,6 +196,8 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
+    <Build Include="Security\esx.sql" />
+    <None Include="Schemma\schemma.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CompareSchema.scmp" />

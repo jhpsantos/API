@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using Patrimonio.Entities;
 using Patrimonio.Repository.Interface;
 using System;
@@ -12,6 +13,12 @@ namespace Patrimonio.Repository.RepositoriosEntidades
     public class MarcaRepository: Base , IMarcaRepository
     {
         bool disposed = false;
+
+        public MarcaRepository(IConfiguration settings)
+        {
+           connection = 
+                new SqlConnection(settings.GetSection("ApplicationSettings").GetSection("ConnectionString").Value);
+        }
 
         public bool InserirMarca(string nome)
         {

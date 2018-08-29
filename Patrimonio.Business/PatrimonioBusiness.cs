@@ -1,4 +1,5 @@
-﻿using Patrimonio.Business.Interface;
+﻿using Microsoft.Extensions.Options;
+using Patrimonio.Business.Interface;
 using Patrimonio.Entities;
 using Patrimonio.Repository.Interface;
 using System;
@@ -8,6 +9,7 @@ namespace Patrimonio.Business
 {
     public class PatrimonioBusiness : IPatrimonioBusiness
     {
+
         IPatrimonioRepository _patrimonioRepository;
 
         public PatrimonioBusiness(IPatrimonioRepository patrimonioRepository)
@@ -15,8 +17,18 @@ namespace Patrimonio.Business
             _patrimonioRepository = patrimonioRepository;
         }
 
-        public bool AtualizarPatrimonio(PatrimonioEntity patrimonio)
+        public bool AtualizarPatrimonio(
+                 int patrimonioId
+               , string nome
+               , int marcaId
+               , string descricao)
         {
+            PatrimonioEntity patrimonio = new PatrimonioEntity();
+            patrimonio.PatrimonioId = patrimonioId;
+            patrimonio.Nome = nome;
+            patrimonio.MarcaId = marcaId;
+            patrimonio.Descricao = descricao;
+
             return _patrimonioRepository.AtualizarPatrimonio(patrimonio);
         }
 
@@ -40,8 +52,16 @@ namespace Patrimonio.Business
             return _patrimonioRepository.ExcluirPatrimonioPorNrTombo(nrTombo);
         }
 
-        public bool InserirPatrimonio(PatrimonioEntity patrimonio)
+        public bool InserirPatrimonio(
+            string nome
+          , int marcaId
+          , string descricao)
         {
+            PatrimonioEntity patrimonio = new PatrimonioEntity();
+            patrimonio.Nome = nome;
+            patrimonio.MarcaId = marcaId;
+            patrimonio.Descricao = descricao;
+
             return _patrimonioRepository.InserirPatrimonio(patrimonio);
         }
 

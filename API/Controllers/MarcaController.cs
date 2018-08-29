@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Patrimonio.Business.Interface;
 using Patrimonio.Entities;
 
 namespace Patrimonios.API.Controllers
 {
+    ///Lacrando os serviços para exigir a autenticação no IdentityServer;
+    [Authorize]
     [Route("api/marcas")]
     [ApiController]
     public class MarcaController : ControllerBase

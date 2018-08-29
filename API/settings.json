@@ -1,0 +1,5 @@
+{
+  "ApplicationSettings": {
+    "ConnectionString" : "Data Source=.\\;Initial Catalog=ESXDESAFIO;uid=esxapp;password=esxapp"
+  }
+}

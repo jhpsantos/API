@@ -2,16 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Patrimonio.Business.Interface;
 using Patrimonio.Entities;
 
 namespace API.Controllers
 {
+    ///Lacrando os serviços para exigir a autenticação no IdentityServer;
+    [Authorize]
     [Route("api/patrimonios")]
     [ApiController]
     public class PatrimonioController : ControllerBase
     {
+
         IPatrimonioBusiness patrimonioBusiness;
 
         public PatrimonioController(IPatrimonioBusiness patrimonio)
@@ -60,27 +65,53 @@ namespace API.Controllers
         // POST api/patrimonio
         // Incluir um patrimonio
         [HttpPost]
-        public ActionResult Post([FromBody] PatrimonioEntity entity)
+        public ActionResult Post(
+                string nome
+            , int marcaId
+            , string descricao)
         {
-            if (patrimonioBusiness.InserirPatrimonio(entity))
-                return Ok();
+            if (string.IsNullOrEmpty(nome)
+                || marcaId.Equals(0))
+                return BadRequest("Os parâmetros de entrada nome e marcaId são requeridos!");
             else
-                ///Não foi possível resolver a requisição. E o registro não foi gerado;
-                return BadRequest();
+            {
+                if (patrimonioBusiness.InserirPatrimonio(
+                        nome
+                    , marcaId
+                    , descricao))
+                    return Ok();
+                else
+                    ///Não foi possível resolver a requisição. E o registro não foi gerado;
+                    return BadRequest();
+            }
         }
 
         // PUT api/patrimonio/{id}
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] PatrimonioEntity entity)
+        public ActionResult Put(
+            int id
+            , string nome
+            , int marcaId
+            , string descricao)
         {
-            entity.PatrimonioId = id;
-            if (patrimonioBusiness.AtualizarPatrimonio(entity))
-                return Ok();
+            if (string.IsNullOrEmpty(nome)
+              || marcaId.Equals(0)
+              || id.Equals(0))
+                return BadRequest("Os parâmetros de entrada id, nome e marcaId são requeridos!");
             else
-                ///Não foi possível resolver a requisição. E o registro não foi atualizado;
-                return BadRequest(
-                 string.Format(@"Nenhum registro foi atualizado: {0} !"
-                         , id));
+            {
+                if (patrimonioBusiness.AtualizarPatrimonio(
+                          id
+                      , nome
+                      , marcaId
+                      , descricao))
+                    return Ok();
+                else
+                    ///Não foi possível resolver a requisição. E o registro não foi atualizado;
+                    return BadRequest(
+                     string.Format(@"Nenhum registro foi atualizado: {0} !"
+                             , id));
+            }
         }
 
         // DELETE api/patrimonio/{id}
