@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Patrimonio.Business.Interface;
 using Patrimonio.Entities;
 
 namespace API.Controllers
 {
+    ///Lacrando os serviços para exigir a autenticação no IdentityServer;
+    [Authorize]
     [Route("api/patrimonios")]
     [ApiController]
     public class PatrimonioController : ControllerBase
