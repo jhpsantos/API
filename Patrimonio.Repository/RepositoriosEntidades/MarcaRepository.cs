@@ -9,24 +9,21 @@ using System.Text;
 
 namespace Patrimonio.Repository.RepositoriosEntidades
 {
-    public class PatrimonioRepository : Base, IPatrimonioRepository
+    public class MarcaRepository: Base , IMarcaRepository
     {
         bool disposed = false;
 
-        public bool AtualizarPatrimonio(PatrimonioEntity patrimonio)
+        public bool InserirMarca(string nome)
         {
             bool retorno = false;
 
             try
             {
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@PatrimonioId", patrimonio.PatrimonioId);
-                parameters.Add("@Nome", patrimonio.Nome);
-                parameters.Add("@MarcaId", patrimonio.MarcaId);
-                parameters.Add("@Descricao", patrimonio.Descricao);
+                parameters.Add("@Nome", nome);
                 int linhasAfetadas = SqlMapper.Execute(
                     connection
-                    , "USP_Atualizar_Patrimonio"
+                    , "USP_Inserir_Marca"
                     , parameters
                     , null
                     , null
@@ -48,77 +45,53 @@ namespace Patrimonio.Repository.RepositoriosEntidades
             return retorno;
         }
 
-        public PatrimonioEntity ConsultarPorId(int patrimonioId)
-        {
-            PatrimonioEntity retorno = null;
-
-            try
-            {
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@PatrimonioId", patrimonioId);
-
-                retorno = SqlMapper.QueryFirstOrDefault<PatrimonioEntity>(
-                    connection
-                    , "USP_Consultar_Patrimonio_Por_ID"
-                    , parameters
-                    , null
-                    , null
-                    , CommandType.StoredProcedure);
-
-            }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return retorno;
-        }
-
-        public PatrimonioEntity ConsultarPorNumeroTombo(string nrTombo)
-        {
-            PatrimonioEntity retorno = null;
-
-            try
-            {
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@NrTombo", nrTombo);
-
-                retorno = SqlMapper.QueryFirstOrDefault<PatrimonioEntity>(
-                    connection
-                    , "USP_Consultar_Por_NrTombo"
-                    , parameters
-                    , null
-                    , null
-                    , CommandType.StoredProcedure);
-            }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return retorno;
-        }
-
-        public bool ExcluirPatrimonioPorId(int patrimonioID)
+        public bool AtualizarMarca(
+                int marcaId
+            ,   string nome)
         {
             bool retorno = false;
 
             try
             {
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@PatrimonioID", patrimonioID);
+                parameters.Add("@MarcaId", marcaId);
+                parameters.Add("@Nome", nome);
+                int linhasAfetadas = SqlMapper.Execute(
+                    connection
+                    , "USP_Atualizar_Marca"
+                    , parameters
+                    , null
+                    , null
+                    , CommandType.StoredProcedure);
+
+                ///Se não retornou linhas afetadas a inserção,
+                ///deverá retornar falso;
+                retorno = (!linhasAfetadas.Equals(0));
+            }
+            catch (SqlException sqlEx)
+            {
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return retorno;
+        }
+
+        public bool ExcluirMarcaPorId(int marcaID)
+        {
+            bool retorno = false;
+
+            try
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@MarcaID", marcaID);
 
                 int linhasAfetadas = SqlMapper.Execute(
                     connection
-                    , "USP_Excluir_Patrimonio_Por_ID"
+                    , "USP_Excluir_Marca_Por_ID"
                     , parameters
                     , null
                     , null
@@ -141,85 +114,17 @@ namespace Patrimonio.Repository.RepositoriosEntidades
             return retorno;
         }
 
-        public bool ExcluirPatrimonioPorNrTombo(string nrTombo)
+        public IList<MarcaEntity> ListarTodasMarcas()
         {
-            bool retorno = false;
+            IList<MarcaEntity> usuarios;
 
             try
             {
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@NrTombo", nrTombo);
-
-                int linhasAfetadas = SqlMapper.Execute(
-                    connection
-                    , "USP_Excluir_Patrimonio_Por_NrTombo"
-                    , parameters
-                    , null
-                    , null
-                    , CommandType.StoredProcedure);
-
-                ///Se não retornou linhas afetadas a exclusão,
-                ///deverá retornar falso;
-                retorno = (!linhasAfetadas.Equals(0));
-
-            }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return retorno;
-        }
-
-        public bool InserirPatrimonio(PatrimonioEntity patrimonio)
-        {
-            bool retorno = false;
-
-            try
-            {
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@Nome", patrimonio.Nome);
-                parameters.Add("@MarcaId", patrimonio.MarcaId);
-                parameters.Add("@Descricao", patrimonio.Descricao);
-                int linhasAfetadas = SqlMapper.Execute(
-                    connection
-                    , "USP_Inserir_Patrimonio"
-                    , parameters
-                    , null
-                    , null
-                    , CommandType.StoredProcedure);
-
-                ///Se não retornou linhas afetadas a inserção,
-                ///deverá retornar falso;
-                retorno = (!linhasAfetadas.Equals(0));
-            }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return retorno;
-        }
-
-        public IList<PatrimonioEntity> ListarTodosPatrimonios()
-        {
-            IList<PatrimonioEntity> resultado;
-
-            try
-            {
-                resultado
-                      = SqlMapper.Query<PatrimonioEntity>(
+                usuarios
+                      = SqlMapper.Query<MarcaEntity>(
                       connection
-                      , "USP_Listar_Patrimonios"
-                      , CommandType.StoredProcedure).AsList<PatrimonioEntity>();
+                      , "USP_Listar_Marcas"
+                      , CommandType.StoredProcedure).AsList<MarcaEntity>();
             }
             catch (SqlException sqlEx)
             {
@@ -230,7 +135,68 @@ namespace Patrimonio.Repository.RepositoriosEntidades
                 throw ex;
             }
 
-            return resultado;
+            return usuarios;
+        }
+
+        public MarcaEntity ConsultarPorId(int marcaId)
+        {
+            MarcaEntity retorno = null;
+
+            try
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@MarcaId", marcaId);
+
+                retorno = SqlMapper.QueryFirstOrDefault<MarcaEntity>(
+                    connection
+                    , "USP_Consultar_Marca_Por_ID"
+                    , parameters
+                    , null
+                    , null
+                    , CommandType.StoredProcedure);
+
+            }
+            catch (SqlException sqlEx)
+            {
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return retorno;
+        }
+
+        public IList<PatrimonioEntity> ConsultarPatrimoniosPorMarcaId(int marcaId)
+        {
+            IList<PatrimonioEntity> patrimonios = null;
+
+            try
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@MarcaId", marcaId);
+
+                patrimonios = SqlMapper.Query<PatrimonioEntity>(
+                    connection
+                    , "USP_Consultar_Patrimonios_Por_Marca_ID"
+                    , parameters
+                    , null
+                    , false
+                    , null
+                    , CommandType.StoredProcedure).AsList<PatrimonioEntity>();
+
+            }
+            catch (SqlException sqlEx)
+            {
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return patrimonios;
         }
 
         protected override void Dispose(bool disposing)
@@ -243,9 +209,10 @@ namespace Patrimonio.Repository.RepositoriosEntidades
             base.Dispose(disposing);
         }
 
-        ~PatrimonioRepository()
+        ~MarcaRepository()
         {
             Dispose(false);
         }
+
     }
 }

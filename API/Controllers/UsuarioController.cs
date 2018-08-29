@@ -9,7 +9,7 @@ using Patrimonio.Entities;
 
 namespace Patrimonios.API.Controllers
 {
-    [Route("api/Usuario")]
+    [Route("api/usuarios")]
     [ApiController]
     public class UsuarioController : ControllerBase
     {
@@ -20,40 +20,65 @@ namespace Patrimonios.API.Controllers
             usuarioBusiness = usuario;
         }
 
-        // GET: api/Usuario
+        // GET: api/usuarios
         [HttpGet]
-        public IList<UsuarioEntity> Get()
+        public ActionResult Get()
         {
-            return usuarioBusiness.ListarTodosUsuarios();
+            IList<UsuarioEntity> usuarios = usuarioBusiness.ListarTodosUsuarios();
+            return Ok(usuarios);
         }
 
-        // GET: api/Usuario/{id}
+        // GET: api/usuarios/{id}
         [HttpGet("{id}")]
-        public UsuarioEntity Get(int id)
+        public ActionResult<UsuarioEntity> Get(int id)
         {
-            return usuarioBusiness.ConsultarPorId(id);
+            UsuarioEntity usuario = usuarioBusiness.ConsultarPorId(id);
+
+            if (null == usuario
+                || usuario.UsuarioId.Equals(0))
+                return NotFound(
+                    string.Format("Nenhum registro encontrado: {0}!"
+                        , id));
+            else
+                return Ok(usuario);
         }
 
-        // POST: api/Usuario
+        // POST: api/usuarios
         [HttpPost]
-        public void Post([FromBody] UsuarioEntity usuario)
+        public ActionResult Post([FromBody] UsuarioEntity usuario)
         {
-            usuarioBusiness.InserirUsuario(usuario);
+            if (usuarioBusiness.InserirUsuario(usuario))
+                return Ok();
+            else
+                ///Não foi possível resolver a requisição. E o registro não foi gerado;
+                return BadRequest();
         }
 
-        // PUT: api/Usuario/{id}
+        // PUT: api/usuarios/{id}
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] UsuarioEntity usuario)
+        public ActionResult Put(int id, [FromBody] UsuarioEntity usuario)
         {
             usuario.UsuarioId = id;
-            usuarioBusiness.AtualizarUsuario(usuario);
+            if (usuarioBusiness.AtualizarUsuario(usuario))
+                return Ok();
+            else
+                ///Não foi possível resolver a requisição. E o registro não foi atualizado;
+                return BadRequest(
+                 string.Format(@"Nenhum registro foi atualizado: {0} !"
+                         , id));
         }
 
         // DELETE: api/Usuario/{id}
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
-            usuarioBusiness.ExcluirUsuarioPorId(id);
+            if (usuarioBusiness.ExcluirUsuarioPorId(id))
+                return NoContent();
+            else
+                ///Não foi possível resolver a requisição. E o registro não foi excluido;
+                return BadRequest(
+                    string.Format(@"Nenhum registro foi encontrado: {0} !"
+                            , id));
         }
     }
 }

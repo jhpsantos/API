@@ -13,6 +13,7 @@ using Patrimonio.Business;
 using Patrimonio.Business.Interface;
 using Patrimonio.Repository.Interface;
 using Patrimonio.Repository.RepositoriosEntidades;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace API
 {
@@ -28,11 +29,40 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
             services.AddTransient<IPatrimonioBusiness, PatrimonioBusiness>();
             services.AddTransient<IPatrimonioRepository, PatrimonioRepository>();
             services.AddTransient<IUsuarioBusiness, UsuarioBusiness>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+            services.AddTransient<IMarcaBusiness, MarcaBusiness>();
+            services.AddTransient<IMarcaRepository, MarcaRepository>();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc(
+                        "v1"
+                        , new Swashbuckle.AspNetCore.Swagger.Info
+                        {
+                            Title = "ESX - Desafio"
+                            ,
+                            Version = "v1"
+                            ,
+                            Description = "WEBAPI Avaliação ESX"
+                            ,
+                        }
+                    );
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                     builder.AllowAnyOrigin()
+                 .AllowAnyMethod()
+                 .AllowAnyHeader()
+                 .AllowCredentials());
+            });
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
 
@@ -44,7 +74,12 @@ namespace API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseSwagger()
+                .UseSwaggerUI(c =>
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ESX - Desafio")
+            );
+
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
